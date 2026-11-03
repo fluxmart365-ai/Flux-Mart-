@@ -1,0 +1,6 @@
+{
+  "name": "FLUX MART - The Premium Global Marketplace",
+  "description": "Enterprise-grade multi-vendor e-commerce platform for Bangladesh featuring Customer, Seller, and Secret Admin portals with bKash/Nagad payments, Pathao/RedX courier logistics, and KYC verification.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

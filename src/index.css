@@ -1,0 +1,63 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Outfit', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-bangla: 'Hind Siliguri', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-gold-300: #FDE68A;
+  --color-gold-400: #FACC15;
+  --color-gold-500: #EAB308;
+  --color-gold-600: #CA8A04;
+  --color-flux-dark: #0B0D13;
+  --color-flux-card: #131722;
+  --color-flux-surface: #1B2130;
+  --color-flux-border: #2A3347;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #0B0D13;
+  color: #F3F4F6;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0D13;
+}
+::-webkit-scrollbar-thumb {
+  background: #252D3F;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C5A059;
+}
+
+/* Metallic Gold text gradient helper */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFF0BE 0%, #D4AF37 50%, #AA771C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #F5D061 0%, #D4AF37 50%, #9E7019 100%);
+}
+
+.border-gold-gradient {
+  border-image: linear-gradient(135deg, #F5D061 0%, #D4AF37 50%, #9E7019 100%) 1;
+}
+
+/* Glass panel */
+.flux-glass {
+  background: rgba(19, 23, 34, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
