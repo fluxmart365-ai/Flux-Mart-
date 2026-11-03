@@ -17,8 +17,15 @@
   --color-flux-border: #2A3347;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   font-family: var(--font-sans);
+  min-width: 0;
+  -webkit-tap-highlight-color: transparent;
   background-color: #0B0D13;
   color: #F3F4F6;
   overflow-x: hidden;
@@ -60,4 +67,19 @@ body {
   background: rgba(19, 23, 34, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+}
+
+/* Mobile: prevent iOS auto-zoom on focused form fields (requires >=16px)
+   now that pinch-zoom is no longer disabled in the viewport meta. */
+@media (max-width: 639px) and (pointer: coarse) {
+  :is(input, select, textarea):is(.text-xs, .text-sm, [class*="text-[9px]"], [class*="text-[10px]"], [class*="text-[11px]"], [class*="text-[13px]"]) {
+    font-size: 16px;
+  }
+}
+
+/* Media never forces horizontal overflow */
+img,
+video,
+svg {
+  max-width: 100%;
 }

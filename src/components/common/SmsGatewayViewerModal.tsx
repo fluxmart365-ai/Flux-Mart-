@@ -60,7 +60,7 @@ export const SmsGatewayViewerModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
       <div className="relative w-full max-w-4xl bg-[#131722] border border-amber-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl text-white my-auto max-h-[90vh] flex flex-col overflow-hidden">
         
         {/* Glow */}

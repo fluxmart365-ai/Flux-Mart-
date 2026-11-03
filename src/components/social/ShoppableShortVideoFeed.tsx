@@ -1023,7 +1023,7 @@ export const ShoppableShortVideoFeed: React.FC<ShoppableShortVideoFeedProps> = (
 
       {/* CREATOR UPLOAD REEL MODAL WITH DEVICE FILE UPLOAD & PRODUCT TAGGING */}
       {isUploadOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
           <div className="relative w-full max-w-md bg-[#131722] border border-amber-500/40 rounded-3xl p-6 shadow-2xl text-white">
             <button
               onClick={() => setIsUploadOpen(false)}
@@ -1123,7 +1123,7 @@ export const ShoppableShortVideoFeed: React.FC<ShoppableShortVideoFeedProps> = (
 
       {/* CREATOR NEW COMMUNITY POST MODAL */}
       {isNewPostOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
           <div className="relative w-full max-w-md bg-[#131722] border border-amber-500/40 rounded-3xl p-6 shadow-2xl text-white">
             <button
               onClick={() => setIsNewPostOpen(false)}

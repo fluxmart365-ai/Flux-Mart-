@@ -44,15 +44,15 @@ export const AccountSwitcherModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-md bg-[#131722] border border-amber-500/40 rounded-3xl p-6 sm:p-7 shadow-2xl text-white my-auto overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
+      <div className="relative w-full max-w-md bg-[#131722] border border-amber-500/40 rounded-2xl sm:rounded-3xl p-4 min-[380px]:p-5 sm:p-7 shadow-2xl text-white my-auto overflow-hidden">
         {/* Glow */}
         <div className="absolute top-0 right-0 w-44 h-44 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
 
         {/* Close */}
         <button
           onClick={() => setIsAccountSwitcherOpen(false)}
-          className="absolute top-4 right-4 text-neutral-400 hover:text-white p-1 rounded-lg transition-colors cursor-pointer z-10"
+          className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 text-neutral-400 hover:text-white p-2 sm:p-1 rounded-lg transition-colors cursor-pointer z-10"
         >
           <X className="w-5 h-5" />
         </button>

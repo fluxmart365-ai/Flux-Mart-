@@ -224,8 +224,8 @@ export const CustomerLoginModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-lg bg-[#131722] border border-amber-500/40 rounded-3xl p-6 sm:p-7 shadow-2xl text-white my-auto overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
+      <div className="relative w-full max-w-lg bg-[#131722] border border-amber-500/40 rounded-2xl sm:rounded-3xl p-4 min-[380px]:p-5 sm:p-7 shadow-2xl text-white my-auto overflow-hidden">
         
         {/* Glow */}
         <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
@@ -233,26 +233,26 @@ export const CustomerLoginModal: React.FC = () => {
         {/* Close Button */}
         <button
           onClick={resetModal}
-          className="absolute top-4 right-4 text-neutral-400 hover:text-white p-1 rounded-lg transition-colors cursor-pointer z-10"
+          className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 text-neutral-400 hover:text-white p-2 sm:p-1 rounded-lg transition-colors cursor-pointer z-10"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Top Logo & Title */}
-        <div className="flex flex-col items-center text-center mb-5">
-          <div className="w-12 h-12 rounded-xl overflow-hidden border border-amber-500/40 shadow-md shadow-amber-500/20 mb-3">
+        <div className="flex flex-col items-center text-center mb-4 sm:mb-5 px-6">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden border border-amber-500/40 shadow-md shadow-amber-500/20 mb-3">
             <img src={OFFICIAL_LOGO} alt="FLUX MART" className="w-full h-full object-cover" />
           </div>
-          <h2 className="text-xl font-extrabold text-white tracking-tight">
+          <h2 className="text-lg sm:text-xl font-extrabold text-white tracking-tight">
             FLUX <span className="text-gold-gradient">MART</span>
           </h2>
-          <p className="text-xs text-amber-200/80 mt-0.5">
+          <p className="text-[11px] sm:text-xs text-amber-200/80 mt-0.5 leading-snug">
             The Premium Global Marketplace · Bangladesh Gateway
           </p>
         </div>
 
         {/* Sign In vs Register Tabs */}
-        <div className="grid grid-cols-2 p-1 bg-[#0B0D13] border border-neutral-800 rounded-xl mb-4 text-xs font-semibold">
+        <div className="grid grid-cols-2 p-1 bg-[#0B0D13] border border-neutral-800 rounded-xl mb-4 text-[11px] min-[380px]:text-xs font-semibold">
           <button
             type="button"
             onClick={() => {
@@ -260,7 +260,7 @@ export const CustomerLoginModal: React.FC = () => {
               setPhoneStep('input');
               setError('');
             }}
-            className={`py-2 rounded-lg transition-all cursor-pointer ${
+            className={`py-2 px-1 rounded-lg transition-all cursor-pointer leading-tight min-w-0 ${
               activeTab === 'signin'
                 ? 'bg-gold-gradient text-slate-950 font-bold shadow'
                 : 'text-neutral-400 hover:text-white'
@@ -275,7 +275,7 @@ export const CustomerLoginModal: React.FC = () => {
               setPhoneStep('input');
               setError('');
             }}
-            className={`py-2 rounded-lg transition-all cursor-pointer ${
+            className={`py-2 px-1 rounded-lg transition-all cursor-pointer leading-tight min-w-0 ${
               activeTab === 'register'
                 ? 'bg-gold-gradient text-slate-950 font-bold shadow'
                 : 'text-neutral-400 hover:text-white'
@@ -287,7 +287,7 @@ export const CustomerLoginModal: React.FC = () => {
 
         {/* Role Selection Onboarding Step (Explicit Customer Sign In vs Seller/Merchant Sign In) */}
         <div className="mb-4 space-y-2">
-          <label className="text-xs font-semibold text-neutral-300 block flex items-center justify-between">
+          <label className="text-xs font-semibold text-neutral-300 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5">
             <span>
               {activeTab === 'signin'
                 ? language === 'bn'
@@ -301,12 +301,12 @@ export const CustomerLoginModal: React.FC = () => {
               {chosenRole === 'seller' ? 'Merchant Mode' : 'Customer Mode'}
             </span>
           </label>
-          <div className="grid grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
             {/* Customer Role */}
             <button
               type="button"
               onClick={() => setChosenRole('customer')}
-              className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+              className={`p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between min-w-0 ${
                 chosenRole === 'customer'
                   ? 'bg-amber-500/15 border-amber-400 text-white shadow-md shadow-amber-500/10'
                   : 'bg-[#0B0D13] border-neutral-800 text-neutral-400 hover:border-neutral-700'
@@ -318,7 +318,7 @@ export const CustomerLoginModal: React.FC = () => {
                 </div>
                 {chosenRole === 'customer' && <Check className="w-4 h-4 text-amber-400" />}
               </div>
-              <span className="text-xs font-bold text-white block">
+              <span className="text-[11px] min-[380px]:text-xs font-bold text-white block leading-tight">
                 {language === 'bn' ? 'ক্রেতা (Customer)' : 'Customer Sign In'}
               </span>
               <span className="text-[10px] text-neutral-400 mt-0.5 line-clamp-2 leading-tight">
@@ -332,7 +332,7 @@ export const CustomerLoginModal: React.FC = () => {
             <button
               type="button"
               onClick={() => setChosenRole('seller')}
-              className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+              className={`p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between min-w-0 ${
                 chosenRole === 'seller'
                   ? 'bg-amber-500/15 border-amber-400 text-white shadow-md shadow-amber-500/10'
                   : 'bg-[#0B0D13] border-neutral-800 text-neutral-400 hover:border-neutral-700'
@@ -344,7 +344,7 @@ export const CustomerLoginModal: React.FC = () => {
                 </div>
                 {chosenRole === 'seller' && <Check className="w-4 h-4 text-amber-400" />}
               </div>
-              <span className="text-xs font-bold text-white block">
+              <span className="text-[11px] min-[380px]:text-xs font-bold text-white block leading-tight">
                 {language === 'bn' ? 'মার্চেন্ট / বিক্রেতা' : 'Merchant Sign In'}
               </span>
               <span className="text-[10px] text-neutral-400 mt-0.5 line-clamp-2 leading-tight">
@@ -357,14 +357,14 @@ export const CustomerLoginModal: React.FC = () => {
         </div>
 
         {/* Method Switcher: Bangladeshi Phone (+880 OTP) vs Email */}
-        <div className="flex items-center gap-2 mb-4 border-b border-neutral-800 pb-2">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-4 border-b border-neutral-800 pb-2">
           <button
             type="button"
             onClick={() => {
               setAuthMethod('phone');
               setError('');
             }}
-            className={`flex items-center gap-1.5 text-xs font-semibold py-1 px-2.5 rounded-lg transition-colors cursor-pointer ${
+            className={`flex items-center gap-1.5 text-[11px] min-[380px]:text-xs font-semibold py-1.5 px-2 sm:px-2.5 rounded-lg transition-colors cursor-pointer whitespace-nowrap ${
               authMethod === 'phone'
                 ? 'bg-neutral-800 text-amber-400'
                 : 'text-neutral-400 hover:text-white'
@@ -380,7 +380,7 @@ export const CustomerLoginModal: React.FC = () => {
               setAuthMethod('email');
               setError('');
             }}
-            className={`flex items-center gap-1.5 text-xs font-semibold py-1 px-2.5 rounded-lg transition-colors cursor-pointer ${
+            className={`flex items-center gap-1.5 text-[11px] min-[380px]:text-xs font-semibold py-1.5 px-2 sm:px-2.5 rounded-lg transition-colors cursor-pointer whitespace-nowrap ${
               authMethod === 'email'
                 ? 'bg-neutral-800 text-amber-400'
                 : 'text-neutral-400 hover:text-white'
@@ -418,7 +418,7 @@ export const CustomerLoginModal: React.FC = () => {
             ) : null}
 
             <div>
-              <div className="flex items-center justify-between mb-1.5">
+              <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 mb-1.5">
                 <label className="text-xs font-medium text-neutral-300">
                   {otpFlowType === 'super_admin_email'
                     ? 'Enter 6-Digit Master Security Code'
@@ -429,7 +429,7 @@ export const CustomerLoginModal: React.FC = () => {
                 <button
                   type="button"
                   onClick={fillQuickCode}
-                  className="text-xs text-amber-400 hover:text-amber-300 underline font-mono cursor-pointer"
+                  className="text-[11px] sm:text-xs text-amber-400 hover:text-amber-300 underline font-mono cursor-pointer text-left"
                 >
                   {otpFlowType === 'super_admin_email'
                     ? 'Auto-fill Master OTP (778800)'
@@ -449,9 +449,9 @@ export const CustomerLoginModal: React.FC = () => {
                 }}
                 placeholder="• • • • • •"
                 autoFocus
-                className="w-full bg-[#0B0D13] border border-neutral-700 focus:border-amber-400 rounded-xl px-4 py-3 text-center tracking-[0.5em] text-xl font-mono text-white outline-none"
+                className="w-full bg-[#0B0D13] border border-neutral-700 focus:border-amber-400 rounded-xl px-3 sm:px-4 py-3 text-center tracking-[0.35em] sm:tracking-[0.5em] text-lg sm:text-xl font-mono text-white outline-none"
               />
-              <span className="text-[10px] text-neutral-400 mt-1 block text-center">
+              <span className="text-[10px] text-neutral-400 mt-1 block text-center break-words">
                 {otpFlowType === 'super_admin_email'
                   ? 'Verification key dispatched via encrypted mail to fluxmart365@gmail.com'
                   : otpFlowType === 'sub_admin_auth'
@@ -535,7 +535,7 @@ export const CustomerLoginModal: React.FC = () => {
                 Bangladeshi Mobile Phone (+880)
               </label>
               <div className="flex items-center rounded-xl bg-[#0B0D13] border border-neutral-700 focus-within:border-amber-400 overflow-hidden">
-                <span className="px-3 py-2.5 text-xs font-semibold text-amber-400 border-r border-neutral-800 bg-white/5 font-mono">
+                <span className="px-3 py-2.5 text-xs font-semibold text-amber-400 border-r border-neutral-800 bg-white/5 font-mono shrink-0">
                   +880
                 </span>
                 <input
@@ -548,7 +548,7 @@ export const CustomerLoginModal: React.FC = () => {
                     setError('');
                   }}
                   placeholder="17XXXXXXXX"
-                  className="w-full bg-transparent px-3 py-2.5 text-xs sm:text-sm text-white font-mono outline-none"
+                  className="w-full min-w-0 bg-transparent px-3 py-2.5 text-xs sm:text-sm text-white font-mono outline-none"
                 />
               </div>
               <span className="text-[10px] text-neutral-500 mt-1 block">
@@ -628,7 +628,7 @@ export const CustomerLoginModal: React.FC = () => {
                 </button>
               </div>
               <div className="flex items-center rounded-xl bg-[#0B0D13] border border-neutral-700 focus-within:border-amber-400 overflow-hidden">
-                <span className="px-3 py-2.5 text-xs text-neutral-400 border-r border-neutral-800">
+                <span className="px-3 py-2.5 text-xs text-neutral-400 border-r border-neutral-800 shrink-0">
                   <Mail className="w-4 h-4" />
                 </span>
                 <input
@@ -637,7 +637,7 @@ export const CustomerLoginModal: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="user@example.com (or fluxmart365@gmail.com)"
                   required
-                  className="w-full bg-transparent px-3 py-2.5 text-xs sm:text-sm text-white outline-none"
+                  className="w-full min-w-0 bg-transparent px-3 py-2.5 text-xs sm:text-sm text-white outline-none"
                 />
               </div>
               <span className="text-[10px] text-neutral-500 mt-1 block">
@@ -650,7 +650,7 @@ export const CustomerLoginModal: React.FC = () => {
                 Password
               </label>
               <div className="flex items-center rounded-xl bg-[#0B0D13] border border-neutral-700 focus-within:border-amber-400 overflow-hidden">
-                <span className="px-3 py-2.5 text-xs text-neutral-400 border-r border-neutral-800">
+                <span className="px-3 py-2.5 text-xs text-neutral-400 border-r border-neutral-800 shrink-0">
                   <Lock className="w-4 h-4" />
                 </span>
                 <input
@@ -659,7 +659,7 @@ export const CustomerLoginModal: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full bg-transparent px-3 py-2.5 text-xs sm:text-sm text-white outline-none"
+                  className="w-full min-w-0 bg-transparent px-3 py-2.5 text-xs sm:text-sm text-white outline-none"
                 />
               </div>
             </div>
@@ -699,7 +699,7 @@ export const CustomerLoginModal: React.FC = () => {
             <button
               type="button"
               onClick={() => handleDemoFastLogin('customer')}
-              className="py-2 px-2.5 rounded-xl bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 hover:text-white text-[11px] font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              className="py-2 px-2.5 rounded-xl bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 hover:text-white text-[11px] font-medium flex items-center justify-center gap-1.5 transition-colors cursor-pointer whitespace-nowrap"
             >
               <Sparkles className="w-3 h-3 text-amber-400" />
               <span>Customer Demo</span>
@@ -707,7 +707,7 @@ export const CustomerLoginModal: React.FC = () => {
             <button
               type="button"
               onClick={() => handleDemoFastLogin('seller')}
-              className="py-2 px-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              className="py-2 px-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer whitespace-nowrap"
             >
               <Store className="w-3 h-3 text-amber-400" />
               <span>Merchant Demo</span>

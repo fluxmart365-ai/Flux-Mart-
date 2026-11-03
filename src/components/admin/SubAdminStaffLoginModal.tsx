@@ -119,8 +119,8 @@ export const SubAdminStaffLoginModal: React.FC<SubAdminStaffLoginModalProps> = (
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/90 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-lg bg-[#0F1420] border border-sky-500/50 rounded-3xl p-6 sm:p-7 shadow-2xl text-white my-auto overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-3 sm:p-5 bg-black/90 backdrop-blur-md overflow-y-auto overscroll-contain">
+      <div className="relative w-full max-w-lg bg-[#0F1420] border border-sky-500/50 rounded-2xl sm:rounded-3xl p-4 min-[380px]:p-5 sm:p-7 shadow-2xl text-white my-auto overflow-hidden">
         
         {/* Ambient Top Glow */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -128,7 +128,7 @@ export const SubAdminStaffLoginModal: React.FC<SubAdminStaffLoginModalProps> = (
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-neutral-400 hover:text-white p-1 rounded-lg transition-colors cursor-pointer"
+          className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 text-neutral-400 hover:text-white p-2 sm:p-1 rounded-lg transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>

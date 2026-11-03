@@ -855,7 +855,7 @@ export const FacebookStyleProfile: React.FC = () => {
 
       {/* MODAL 1: CUSTOM COVER PHOTO CUSTOMIZER */}
       {isCoverModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto overscroll-contain animate-in fade-in duration-200">
           <div className="relative w-full max-w-md bg-[#131722] border border-amber-500/40 rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-neutral-800">
               <div className="flex items-center gap-2">
@@ -945,7 +945,7 @@ export const FacebookStyleProfile: React.FC = () => {
 
       {/* MODAL 2: CUSTOM PROFILE PICTURE CUSTOMIZER */}
       {isAvatarModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto overscroll-contain animate-in fade-in duration-200">
           <div className="relative w-full max-w-md bg-[#131722] border border-amber-500/40 rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-neutral-800">
               <div className="flex items-center gap-2">
