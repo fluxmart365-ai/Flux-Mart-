@@ -247,7 +247,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-2 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
       <div
         ref={modalScrollRef}
         className="relative w-full max-w-5xl bg-[#131722] border border-amber-500/40 rounded-2xl sm:rounded-3xl shadow-2xl overflow-y-auto text-white my-auto max-h-[94vh] flex flex-col"

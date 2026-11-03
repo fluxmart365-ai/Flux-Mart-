@@ -111,7 +111,7 @@ const MainAppContent: React.FC = () => {
         
         {/* If Mobile Shell Mode active on larger screens */}
         {viewMode === 'mobile' && (
-          <div className="mb-3 px-4 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs text-neutral-400 flex items-center gap-2">
+          <div className="mb-3 mx-3 px-4 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs text-neutral-400 flex flex-wrap items-center justify-center gap-2 text-center">
             <Smartphone className="w-3.5 h-3.5 text-amber-400" />
             <span>Mobile App View (390px Viewport)</span>
             <button
@@ -138,14 +138,14 @@ const MainAppContent: React.FC = () => {
 
           {/* Discreet Admin Mode Alert Banner if admin mode unlocked */}
           {role === 'admin' && (
-            <div className="bg-amber-500/15 border-b border-amber-500/30 px-4 py-2 flex items-center justify-between text-xs text-amber-300">
-              <span className="flex items-center gap-1.5 font-semibold">
-                <Shield className="w-4 h-4 text-amber-400" />
+            <div className="bg-amber-500/15 border-b border-amber-500/30 px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 text-[11px] sm:text-xs text-amber-300">
+              <span className="flex items-center gap-1.5 font-semibold min-w-0">
+                <Shield className="shrink-0 w-4 h-4 text-amber-400" />
                 <span>Secret Admin Console Active (Confidential)</span>
               </span>
               <button
                 onClick={() => setRole('customer')}
-                className="px-3 py-1 rounded bg-amber-500 text-slate-950 font-bold hover:brightness-105 flex items-center gap-1 cursor-pointer"
+                className="px-2.5 sm:px-3 py-1 rounded bg-amber-500 text-slate-950 font-bold hover:brightness-105 flex items-center gap-1 cursor-pointer shrink-0 whitespace-nowrap"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Return to Public Store</span>
@@ -155,16 +155,16 @@ const MainAppContent: React.FC = () => {
 
           {/* Sub-Admin Sentinel Mode Alert Banner */}
           {role === 'subadmin' && (
-            <div className="bg-sky-500/15 border-b border-sky-500/30 px-4 py-2 flex items-center justify-between text-xs text-sky-300">
-              <span className="flex items-center gap-1.5 font-semibold">
-                <Shield className="w-4 h-4 text-sky-400" />
+            <div className="bg-sky-500/15 border-b border-sky-500/30 px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 text-[11px] sm:text-xs text-sky-300">
+              <span className="flex items-center gap-1.5 font-semibold min-w-0">
+                <Shield className="shrink-0 w-4 h-4 text-sky-400" />
                 <span>
                   Sub-Admin Sentinel Squad Active ({activeSubAdminTeam ? activeSubAdminTeam.toUpperCase().replace(/_/g, ' ') : 'OPERATIONS'})
                 </span>
               </span>
               <button
                 onClick={() => setRole('customer')}
-                className="px-3 py-1 rounded bg-sky-500 text-slate-950 font-bold hover:brightness-105 flex items-center gap-1 cursor-pointer"
+                className="px-2.5 sm:px-3 py-1 rounded bg-sky-500 text-slate-950 font-bold hover:brightness-105 flex items-center gap-1 cursor-pointer shrink-0 whitespace-nowrap"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Exit Console</span>
@@ -174,14 +174,14 @@ const MainAppContent: React.FC = () => {
 
           {/* Merchant Mode Alert Banner if seller role is active */}
           {role === 'seller' && (
-            <div className="bg-amber-500/15 border-b border-amber-500/30 px-4 py-2 flex items-center justify-between text-xs text-amber-300">
-              <span className="flex items-center gap-1.5 font-semibold">
-                <Store className="w-4 h-4 text-amber-400" />
+            <div className="bg-amber-500/15 border-b border-amber-500/30 px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 text-[11px] sm:text-xs text-amber-300">
+              <span className="flex items-center gap-1.5 font-semibold min-w-0">
+                <Store className="shrink-0 w-4 h-4 text-amber-400" />
                 <span>Merchant & Seller Portal Active (Digital Wallet & Catalog)</span>
               </span>
               <button
                 onClick={() => setRole('customer')}
-                className="px-3 py-1 rounded bg-amber-500 text-slate-950 font-bold hover:brightness-105 flex items-center gap-1 cursor-pointer"
+                className="px-2.5 sm:px-3 py-1 rounded bg-amber-500 text-slate-950 font-bold hover:brightness-105 flex items-center gap-1 cursor-pointer shrink-0 whitespace-nowrap"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>Switch to Customer Store</span>
@@ -190,7 +190,7 @@ const MainAppContent: React.FC = () => {
           )}
 
           {/* Main Content Area */}
-          <main className="flex-1 px-4 sm:px-6 py-6 pb-28 sm:pb-32">
+          <main className="flex-1 min-w-0 px-3 min-[380px]:px-4 sm:px-6 py-4 sm:py-6 pb-[calc(6.5rem+env(safe-area-inset-bottom))] sm:pb-32">
             {role === 'admin' ? (
               <SecretAdminPortal />
             ) : role === 'subadmin' ? (
@@ -213,9 +213,9 @@ const MainAppContent: React.FC = () => {
           <LuxuryFloatingBottomNav />
 
           {/* Quiet Footer with Legal, DBID, and Telecom Gateway triggers */}
-          <footer className="mt-auto border-t border-neutral-900 bg-[#07090D] py-6 px-4 sm:px-6 text-xs text-neutral-500">
-            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-2 flex-wrap">
+          <footer className="mt-auto border-t border-neutral-900 bg-[#07090D] py-6 px-3 min-[380px]:px-4 sm:px-6 pb-[calc(6.5rem+env(safe-area-inset-bottom))] sm:pb-28 text-xs text-neutral-500">
+            <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-4 text-center lg:text-left">
+              <div className="flex items-center justify-center lg:justify-start gap-x-2 gap-y-1 flex-wrap">
                 <span className="font-bold text-white tracking-tight">FLUX MART</span>
                 <span>·</span>
                 <span>The Premium Global Marketplace</span>
@@ -223,7 +223,7 @@ const MainAppContent: React.FC = () => {
                 <span className="text-amber-400/80">Social Commerce & Shoppable Reels</span>
               </div>
 
-              <div className="flex items-center gap-3 flex-wrap">
+              <div className="flex items-center justify-center lg:justify-end gap-x-3 gap-y-2 flex-wrap">
                 <button
                   onClick={() => openLegalModal('dbid')}
                   className="hover:text-amber-400 transition-colors cursor-pointer text-[11px]"

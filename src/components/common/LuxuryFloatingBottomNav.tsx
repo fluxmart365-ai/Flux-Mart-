@@ -27,7 +27,8 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
     openLiveSupport,
     setIsSellerAdminMessengerOpen,
     socialProfile,
-    unreadNotificationCount
+    unreadNotificationCount,
+    viewMode
   } = useApp();
 
   const [isCreateSheetOpen, setIsCreateSheetOpen] = useState(false);
@@ -76,7 +77,7 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
       {/* 1. Luxury Floating Bottom Navigation Bar */}
       <aside
         aria-label="Mobile Navigation"
-        className="fixed bottom-3 left-3 right-3 sm:left-1/2 sm:-translate-x-1/2 sm:w-[480px] z-40 bg-[#0B0D13]/90 backdrop-blur-2xl border border-amber-500/35 rounded-3xl shadow-[0_12px_45px_rgba(0,0,0,0.85)] px-3 py-1.5 flex items-center justify-between select-none transition-all duration-300 ring-1 ring-amber-500/10"
+        className={`fixed bottom-[max(0.5rem,env(safe-area-inset-bottom))] min-[360px]:bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-2 right-2 min-[360px]:left-3 min-[360px]:right-3 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 ${viewMode === 'mobile' ? 'sm:w-[396px]' : 'sm:w-[480px]'} z-40 bg-[#0B0D13]/90 backdrop-blur-2xl border border-amber-500/35 rounded-3xl shadow-[0_12px_45px_rgba(0,0,0,0.85)] px-1.5 min-[360px]:px-3 py-1.5 flex items-center justify-between select-none transition-all duration-300 ring-1 ring-amber-500/10`}
       >
         {/* Subtle Ambient Gold Glow inside the bar */}
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-amber-500/5 via-transparent to-amber-500/5 pointer-events-none" />
@@ -84,7 +85,7 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
         {/* Tab 1: [Shop] */}
         <button
           onClick={() => handleTabClick('shop')}
-          className={`flex-1 flex flex-col items-center justify-center py-1 transition-all duration-300 group cursor-pointer relative ${
+          className={`flex-1 min-w-0 flex flex-col items-center justify-center py-1 transition-all duration-300 group cursor-pointer relative ${
             isShopActive ? 'scale-105' : 'hover:scale-102'
           }`}
           title="Marketplace Shop"
@@ -108,7 +109,7 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
             )}
           </div>
           <span
-            className={`text-[10px] tracking-tight mt-0.5 font-medium transition-colors duration-300 ${
+            className={`max-w-full truncate text-[10px] tracking-tight mt-0.5 font-medium transition-colors duration-300 ${
               isShopActive ? 'text-amber-300 font-bold' : 'text-neutral-400 group-hover:text-neutral-300'
             }`}
           >
@@ -119,7 +120,7 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
         {/* Tab 2: [Reels Feed] */}
         <button
           onClick={() => handleTabClick('discover')}
-          className={`flex-1 flex flex-col items-center justify-center py-1 transition-all duration-300 group cursor-pointer relative ${
+          className={`flex-1 min-w-0 flex flex-col items-center justify-center py-1 transition-all duration-300 group cursor-pointer relative ${
             isReelsActive ? 'scale-105' : 'hover:scale-102'
           }`}
           title="Shoppable Short Reels"
@@ -146,7 +147,7 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
             )}
           </div>
           <span
-            className={`text-[10px] tracking-tight mt-0.5 font-medium transition-colors duration-300 ${
+            className={`max-w-full truncate text-[10px] tracking-tight mt-0.5 font-medium transition-colors duration-300 ${
               isReelsActive ? 'text-amber-300 font-bold' : 'text-neutral-400 group-hover:text-neutral-300'
             }`}
           >
@@ -155,10 +156,10 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
         </button>
 
         {/* Tab 3: Center Highlight [ + Create / Post FAB ] */}
-        <div className="flex-1 flex flex-col items-center justify-center relative -mt-5 z-20">
+        <div className="flex-1 min-w-0 flex flex-col items-center justify-center relative -mt-5 z-20">
           <button
             onClick={() => setIsCreateSheetOpen(true)}
-            className="group relative w-12 h-12 rounded-full bg-gradient-to-tr from-[#B47B16] via-[#FBBF24] to-[#F59E0B] p-0.5 shadow-xl shadow-amber-500/35 hover:shadow-amber-500/60 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer ring-4 ring-[#0B0D13]"
+            className="group relative w-11 h-11 min-[360px]:w-12 min-[360px]:h-12 rounded-full bg-gradient-to-tr from-[#B47B16] via-[#FBBF24] to-[#F59E0B] p-0.5 shadow-xl shadow-amber-500/35 hover:shadow-amber-500/60 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer ring-4 ring-[#0B0D13]"
             title="Create: Upload Reel, Post Look, or List Product"
             aria-label="Create new post, reel, or listing"
           >
@@ -177,7 +178,7 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
         {/* Tab 4: [Messages / Inbox] */}
         <button
           onClick={handleInboxClick}
-          className="flex-1 flex flex-col items-center justify-center py-1 transition-all duration-300 group cursor-pointer relative hover:scale-102"
+          className="flex-1 min-w-0 flex flex-col items-center justify-center py-1 transition-all duration-300 group cursor-pointer relative hover:scale-102"
           title="Direct Encrypted Support Desk & Messages"
         >
           <div className="relative">
@@ -191,7 +192,7 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
               </span>
             )}
           </div>
-          <span className="text-[10px] tracking-tight mt-0.5 font-medium text-neutral-400 group-hover:text-neutral-300 transition-colors">
+          <span className="max-w-full truncate text-[10px] tracking-tight mt-0.5 font-medium text-neutral-400 group-hover:text-neutral-300 transition-colors">
             {language === 'bn' ? 'ইনবক্স' : 'Inbox'}
           </span>
         </button>
@@ -199,7 +200,7 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
         {/* Tab 5: [My Account / Merchant Dashboard] */}
         <button
           onClick={handleAccountClick}
-          className={`flex-1 flex flex-col items-center justify-center py-1 transition-all duration-300 group cursor-pointer relative ${
+          className={`flex-1 min-w-0 flex flex-col items-center justify-center py-1 transition-all duration-300 group cursor-pointer relative ${
             isAccountActive ? 'scale-105' : 'hover:scale-102'
           }`}
           title="Account Profile & Settings"
@@ -233,7 +234,7 @@ export const LuxuryFloatingBottomNav: React.FC = () => {
             )}
           </div>
           <span
-            className={`text-[10px] tracking-tight mt-0.5 font-medium transition-colors duration-300 ${
+            className={`max-w-full truncate text-[10px] tracking-tight mt-0.5 font-medium transition-colors duration-300 ${
               isAccountActive ? 'text-amber-300 font-bold' : 'text-neutral-400 group-hover:text-neutral-300'
             }`}
           >

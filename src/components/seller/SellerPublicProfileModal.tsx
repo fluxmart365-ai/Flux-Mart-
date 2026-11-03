@@ -98,7 +98,7 @@ export const SellerPublicProfileModal: React.FC<SellerPublicProfileModalProps> =
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain animate-in fade-in duration-200">
       <div className="relative w-full max-w-3xl bg-[#0F121A] border border-amber-500/40 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] my-auto text-white">
         
         {/* Cover Photo Area with Facebook-style Social Header */}

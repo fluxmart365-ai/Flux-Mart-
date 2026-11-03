@@ -936,7 +936,7 @@ export const SellerPortal: React.FC = () => {
 
       {/* 4. WITHDRAWAL MODAL */}
       {isWithdrawOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto overscroll-contain">
           <div className="relative w-full max-w-md bg-[#131722] border border-amber-500/40 rounded-3xl p-6 shadow-2xl text-white">
             <button
               onClick={() => setIsWithdrawOpen(false)}
@@ -1011,7 +1011,7 @@ export const SellerPortal: React.FC = () => {
 
       {/* 5. EDIT STORE PROFILE & SOCIAL SPACE MODAL */}
       {isEditProfileOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain animate-in fade-in duration-200">
           <div className="relative w-full max-w-lg bg-[#131722] border border-amber-500/40 rounded-3xl p-6 sm:p-7 shadow-2xl text-white my-auto space-y-4">
             <button
               onClick={() => setIsEditProfileOpen(false)}

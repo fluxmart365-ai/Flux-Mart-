@@ -253,7 +253,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
   // If order was confirmed, show the Invoice Receipt View
   if (confirmedOrder) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-in fade-in">
+      <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain animate-in fade-in">
         <div className="relative w-full max-w-xl bg-[#131722] border-2 border-amber-500 rounded-3xl shadow-2xl text-white my-auto p-5 sm:p-7 space-y-5">
           {/* Header */}
           <div className="text-center space-y-2">
@@ -388,7 +388,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
       <div className="relative w-full max-w-lg bg-[#131722] border border-amber-500/40 rounded-2xl sm:rounded-3xl shadow-2xl text-white my-auto max-h-[95vh] flex flex-col overflow-hidden">
         
         {/* Modal Top Bar */}

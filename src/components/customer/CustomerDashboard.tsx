@@ -196,7 +196,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({ isOpen, on
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
       <div className="relative w-full max-w-4xl bg-[#131722] border border-amber-500/30 rounded-2xl sm:rounded-3xl shadow-2xl text-white my-auto max-h-[92vh] flex flex-col overflow-hidden">
         
         {/* Header */}
@@ -733,7 +733,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({ isOpen, on
 
       {/* Add New 6-Field Structured Address Modal */}
       {isAddressModalOpen && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div className="fixed inset-0 z-60 flex items-center-safe justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
           <div className="relative w-full max-w-lg bg-[#131722] border border-amber-500/40 rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-neutral-800">
               <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
@@ -843,7 +843,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({ isOpen, on
 
       {/* Live Courier Tracking Modal Checkpoint View */}
       {selectedTrackingOrder && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div className="fixed inset-0 z-60 flex items-center-safe justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
           <div className="relative w-full max-w-md bg-[#131722] border border-amber-500/40 rounded-2xl p-6 shadow-2xl text-white">
             <button
               onClick={() => setSelectedTrackingOrder(null)}
@@ -909,7 +909,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({ isOpen, on
 
       {/* 7-Day Guarantee Escrow Return Modal */}
       {returnTargetOrder && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain">
           <div className="relative w-full max-w-lg bg-[#131722] border border-amber-500/40 rounded-3xl p-6 sm:p-7 shadow-2xl text-white my-auto overflow-hidden">
             
             <button

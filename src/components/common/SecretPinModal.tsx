@@ -27,12 +27,12 @@ export const SecretPinModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-      <div className="relative w-full max-w-md bg-[#131722] border border-amber-500/40 rounded-2xl p-6 shadow-2xl shadow-amber-950/50 text-white">
+    <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto overscroll-contain">
+      <div className="relative w-full max-w-md bg-[#131722] border border-amber-500/40 rounded-2xl p-4 min-[380px]:p-5 sm:p-6 shadow-2xl shadow-amber-950/50 text-white my-auto">
         {/* Close Button */}
         <button
           onClick={() => setSecretPinModalOpen(false)}
-          className="absolute top-4 right-4 text-neutral-400 hover:text-white p-1 rounded-lg transition-colors cursor-pointer"
+          className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 text-neutral-400 hover:text-white p-2 sm:p-1 rounded-lg transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>

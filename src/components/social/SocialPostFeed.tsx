@@ -325,7 +325,7 @@ export const SocialPostFeed: React.FC<SocialPostFeedProps> = ({ onInstantBuy }) 
 
       {/* CREATE NEW LOOK POST MODAL WITH PRODUCT TAGGING & DEVICE UPLOAD */}
       {isCreateOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center-safe justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto overscroll-contain animate-in fade-in duration-200">
           <div className="relative w-full max-w-lg bg-[#131722] border border-amber-500/40 rounded-3xl p-6 shadow-2xl text-white">
             <button
               onClick={() => setIsCreateOpen(false)}
