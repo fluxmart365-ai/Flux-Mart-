@@ -30,6 +30,7 @@ import {
   DailyPayoutSummary,
   PromotionalBanner
 } from '../types';
+import { GENERATED_PRODUCTS, isGeneratedProductId } from '../data/generatedCatalog';
 import {
   INITIAL_PRODUCTS,
   INITIAL_PROMOTIONAL_BANNERS,
@@ -46,6 +47,7 @@ import {
   INITIAL_SMS_LOGS,
   INITIAL_DAILY_PAYOUTS
 } from '../data/mockData';
+
 import {
   INITIAL_CUSTOMER_SOCIAL_PROFILE,
   INITIAL_SHOPPABLE_VIDEOS,
@@ -53,6 +55,8 @@ import {
   INITIAL_SMART_NOTIFICATIONS
 } from '../data/mockSocialData';
 import { translations } from '../data/translations';
+
+const GENERATED_PRODUCTS_BY_ID = new Map(GENERATED_PRODUCTS.map((p) => [p.id, p]));
 
 interface AppContextType {
   role: Role;
@@ -472,29 +476,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Store data with robust real-time synchronization
   const [products, setProducts] = useState<Product[]>(() => {
+    const baseCatalog = [...INITIAL_PRODUCTS, ...GENERATED_PRODUCTS];
     const saved = localStorage.getItem('flux_products_v3');
     if (saved) {
       try {
         const parsed: Product[] = JSON.parse(saved);
-        const merged = [...INITIAL_PRODUCTS];
+        const merged = [...baseCatalog];
+        const indexById = new Map(merged.map((m, i) => [m.id, i]));
+        const added: Product[] = [];
         parsed.forEach((p) => {
-          const idx = merged.findIndex((m) => m.id === p.id);
-          if (idx >= 0) {
+          const idx = indexById.get(p.id);
+          if (idx !== undefined) {
             merged[idx] = { ...merged[idx], ...p };
           } else {
-            merged.unshift(p);
+            added.push(p);
           }
         });
-        return merged;
+        return [...added, ...merged];
       } catch {
-        return INITIAL_PRODUCTS;
+        return baseCatalog;
       }
     }
-    return INITIAL_PRODUCTS;
+    return baseCatalog;
   });
 
   useEffect(() => {
-    localStorage.setItem('flux_products_v3', JSON.stringify(products));
+    // Persist only seller-added / edited products. Untouched demo catalog items are
+    // regenerated deterministically on load, which keeps localStorage small.
+    const toPersist = products.filter(
+      (p) => !isGeneratedProductId(p.id) || p !== GENERATED_PRODUCTS_BY_ID.get(p.id)
+    );
+    try {
+      localStorage.setItem('flux_products_v3', JSON.stringify(toPersist));
+    } catch {
+      // Ignore quota errors; demo data will still be available in-memory
+    }
   }, [products]);
 
   // Dynamic Promotional Hero Banners

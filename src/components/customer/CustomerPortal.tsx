@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Product, ProductCategory } from '../../types';
 import { ProductCard } from './ProductCard';
@@ -15,7 +15,8 @@ import {
   Flame,
   Zap,
   ShoppingBag,
-  RotateCcw
+  RotateCcw,
+  ArrowUpDown
 } from 'lucide-react';
 
 interface CustomerPortalProps {
@@ -30,22 +31,69 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({ onOpenCart, onIn
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory | 'all'>('all');
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
 
-  // Real-time synchronized filtered products
-  const filteredProducts = products.filter((prod) => {
-    const matchesCategory = selectedCategory === 'all' || prod.category === selectedCategory;
+  type SortOption = 'default' | 'price_asc' | 'price_desc' | 'rating' | 'discount';
+  const PAGE_SIZE = 24;
+  const [sortBy, setSortBy] = useState<SortOption>('default');
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+
+  // Real-time synchronized filtered + sorted products
+  const filteredProducts = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    if (!query) return matchesCategory;
+    const list = products.filter((prod) => {
+      const matchesCategory = selectedCategory === 'all' || prod.category === selectedCategory;
+      if (!matchesCategory) return false;
+      if (!query) return true;
 
-    const matchesSearch =
-      prod.title.toLowerCase().includes(query) ||
-      prod.titleBn.toLowerCase().includes(query) ||
-      prod.brand.toLowerCase().includes(query) ||
-      (prod.subCategory && prod.subCategory.toLowerCase().includes(query)) ||
-      (prod.sellerName && prod.sellerName.toLowerCase().includes(query)) ||
-      (prod.sellerUniqueId && prod.sellerUniqueId.toLowerCase().includes(query));
+      return (
+        prod.title.toLowerCase().includes(query) ||
+        prod.titleBn.toLowerCase().includes(query) ||
+        prod.brand.toLowerCase().includes(query) ||
+        (prod.subCategory && prod.subCategory.toLowerCase().includes(query)) ||
+        (prod.sellerName && prod.sellerName.toLowerCase().includes(query)) ||
+        (prod.sellerUniqueId && prod.sellerUniqueId.toLowerCase().includes(query)) ||
+        prod.sku.toLowerCase().includes(query)
+      );
+    });
 
-    return matchesCategory && matchesSearch;
-  });
+    const discountOf = (p: Product) => (p.originalPrice - p.price) / (p.originalPrice || 1);
+    switch (sortBy) {
+      case 'price_asc':
+        return [...list].sort((a, b) => a.price - b.price);
+      case 'price_desc':
+        return [...list].sort((a, b) => b.price - a.price);
+      case 'rating':
+        return [...list].sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount);
+      case 'discount':
+        return [...list].sort((a, b) => discountOf(b) - discountOf(a));
+      default:
+        return list;
+    }
+  }, [products, searchQuery, selectedCategory, sortBy]);
+
+  // Reset pagination whenever the filter/sort changes
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [searchQuery, selectedCategory, sortBy]);
+
+  const visibleProducts = filteredProducts.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProducts.length;
+
+  // Infinite scroll: load the next page when the sentinel comes into view
+  useEffect(() => {
+    const node = loadMoreRef.current;
+    if (!node || !hasMore) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setVisibleCount((c) => c + PAGE_SIZE);
+        }
+      },
+      { rootMargin: '600px 0px' }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore, visibleCount]);
 
   return (
     <div className="space-y-6 sm:space-y-8 pb-16">
@@ -74,7 +122,7 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({ onOpenCart, onIn
           <div className="flex items-center gap-2 self-start sm:self-center">
             <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/30 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{products.length} Items Live</span>
+              <span>{products.length.toLocaleString()} Items Live</span>
             </span>
           </div>
         </div>
@@ -121,7 +169,7 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({ onOpenCart, onIn
               <span>{language === 'bn' ? 'মার্কেটপ্লেস কালেকশন' : 'Marketplace Collections'}</span>
             </h2>
             <p className="text-xs text-neutral-400">
-              {filteredProducts.length}{' '}
+              {filteredProducts.length.toLocaleString()}{' '}
               {language === 'bn' ? 'টি প্রিমিয়াম পণ্য সরাসরি ডিসপ্যাচের জন্য প্রস্তুত' : 'verified items ready for instant dispatch'}
             </p>
           </div>
@@ -150,6 +198,29 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({ onOpenCart, onIn
           </div>
         </div>
 
+        {/* Sort & result summary */}
+        <div className="flex items-center justify-between gap-3 text-xs">
+          <span className="text-neutral-500">
+            {language === 'bn'
+              ? `${Math.min(visibleCount, filteredProducts.length).toLocaleString()} / ${filteredProducts.length.toLocaleString()} টি পণ্য দেখানো হচ্ছে`
+              : `Showing ${Math.min(visibleCount, filteredProducts.length).toLocaleString()} of ${filteredProducts.length.toLocaleString()}`}
+          </span>
+          <label className="flex items-center gap-1.5 text-neutral-400">
+            <ArrowUpDown className="w-3.5 h-3.5 text-amber-400" />
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              className="bg-[#131722] border border-neutral-800 rounded-lg px-2 py-1.5 text-xs text-white outline-none focus:border-amber-400 cursor-pointer"
+            >
+              <option value="default">{language === 'bn' ? 'প্রস্তাবিত' : 'Recommended'}</option>
+              <option value="price_asc">{language === 'bn' ? 'দাম: কম থেকে বেশি' : 'Price: Low to High'}</option>
+              <option value="price_desc">{language === 'bn' ? 'দাম: বেশি থেকে কম' : 'Price: High to Low'}</option>
+              <option value="rating">{language === 'bn' ? 'সেরা রেটিং' : 'Top Rated'}</option>
+              <option value="discount">{language === 'bn' ? 'সর্বোচ্চ ছাড়' : 'Biggest Discount'}</option>
+            </select>
+          </label>
+        </div>
+
         {/* Product Grid */}
         {filteredProducts.length === 0 ? (
           <div className="py-20 text-center text-neutral-400 space-y-3 bg-[#131722]/50 border border-neutral-800 rounded-2xl">
@@ -166,15 +237,29 @@ export const CustomerPortal: React.FC<CustomerPortalProps> = ({ onOpenCart, onIn
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-            {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onSelect={(prod) => setActiveProduct(prod)}
-              />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+              {visibleProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onSelect={(prod) => setActiveProduct(prod)}
+                />
+              ))}
+            </div>
+            {hasMore && (
+              <div ref={loadMoreRef} className="flex justify-center pt-2">
+                <button
+                  onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+                  className="px-5 py-2.5 rounded-xl bg-[#131722] border border-amber-500/30 text-xs font-semibold text-amber-400 hover:bg-neutral-800 cursor-pointer"
+                >
+                  {language === 'bn'
+                    ? `আরও পণ্য দেখুন (${(filteredProducts.length - visibleCount).toLocaleString()} টি বাকি)`
+                    : `Load more (${(filteredProducts.length - visibleCount).toLocaleString()} remaining)`}
+                </button>
+              </div>
+            )}
+          </>
         )}
       </section>
 
