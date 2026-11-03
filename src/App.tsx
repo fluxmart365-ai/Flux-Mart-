@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { AppProvider, useApp } from './context/AppContext';
 import { SplashScreen } from './components/common/SplashScreen';
 import { Header } from './components/common/Header';
@@ -55,8 +56,19 @@ const MainAppContent: React.FC = () => {
     activeSubAdminTeam,
     openLegalModal,
     setIsSmsViewerOpen,
-    openDigitalInvoice
+    openDigitalInvoice,
+    showSplash,
+    setShowSplash
   } = useApp();
+
+  // Splash shows the gold animated logo + slogan for 2.5s on every app open,
+  // then fades out while the marketplace home fades in.
+  const SPLASH_DURATION_MS = 2500;
+  const handleSplashFinish = () => {
+    setActiveMainTab('shop');
+    window.scrollTo({ top: 0 });
+    setShowSplash(false);
+  };
 
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
@@ -84,8 +96,23 @@ const MainAppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0D13] text-[#F3F4F6] flex flex-col justify-between selection:bg-amber-500/30 selection:text-amber-300">
-      <SplashScreen />
+    <>
+    <AnimatePresence>
+      {showSplash && (
+        <SplashScreen
+          duration={SPLASH_DURATION_MS}
+          onFinish={handleSplashFinish}
+          language={language}
+        />
+      )}
+    </AnimatePresence>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: showSplash ? 0 : 1 }}
+      transition={{ duration: 0.6, delay: showSplash ? 0 : 0.15, ease: [0.22, 1, 0.36, 1] }}
+      aria-hidden={showSplash}
+      className="min-h-screen bg-[#0B0D13] text-[#F3F4F6] flex flex-col justify-between selection:bg-amber-500/30 selection:text-amber-300"
+    >
       <SecretPinModal />
       <CustomerLoginModal />
       <SubAdminStaffLoginModal
@@ -291,7 +318,8 @@ const MainAppContent: React.FC = () => {
         isOpen={isDashboardOpen}
         onClose={() => setIsDashboardOpen(false)}
       />
-    </div>
+    </motion.div>
+    </>
   );
 };
 
